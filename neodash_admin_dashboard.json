@@ -1,0 +1,380 @@
+{
+  "title": "NeoDash Admin",
+  "version": "2.4",
+  "settings": {
+    "pagenumber": 5,
+    "editable": true,
+    "fullscreenEnabled": false,
+    "parameters": {
+      "neodash_config": "timeout"
+    },
+    "theme": "dark"
+  },
+  "pages": [
+    {
+      "title": "Main Page",
+      "reports": [
+        {
+          "id": "d3bb3fae-181f-4238-b8bc-02ccce80ca26",
+          "title": "NeoDash Admin",
+          "query": "Welcome to the NeoDash Admin \n\n\n",
+          "width": 10,
+          "height": 2,
+          "x": 0,
+          "y": 0,
+          "type": "text",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "e213f5cd-f417-4b2a-829d-ed5e71f50afa",
+          "title": "Neo4j Configuration",
+          "query": "SHOW SETTINGS yield name, value\nWHERE (name CONTAINS $neodash_config) OR ($neodash_config = \"\")\nRETURN name, value",
+          "width": 18,
+          "height": 4,
+          "x": 6,
+          "y": 2,
+          "type": "table",
+          "selection": {},
+          "settings": {
+            "allowDownload": true
+          },
+          "schema": [],
+          "database": "neo4j"
+        },
+        {
+          "id": "2623bf32-35c3-4088-a045-4992b9baad75",
+          "title": "Configuration Filter",
+          "query": "RETURN true;",
+          "width": 6,
+          "height": 4,
+          "x": 0,
+          "y": 2,
+          "type": "select",
+          "selection": {},
+          "settings": {
+            "type": "Free Text",
+            "entityType": "config",
+            "parameterName": "neodash_config"
+          },
+          "schema": []
+        },
+        {
+          "id": "1ea29ba1-ecae-42e9-8256-606cda898a21",
+          "title": "Neo4j Version",
+          "query": "call dbms.components() yield versions, edition unwind versions as version return version, edition;\n\n\n",
+          "width": 4,
+          "height": 2,
+          "x": 10,
+          "y": 0,
+          "type": "value",
+          "selection": {},
+          "settings": {
+            "fontSize": 24
+          },
+          "schema": []
+        },
+        {
+          "id": "dcc0ef29-9197-4d3b-bea5-2468655dbacb",
+          "title": "Neo4j DB Timezone",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name = \"dbms.db.timezone\"\nRETURN value\n",
+          "width": 5,
+          "height": 2,
+          "x": 19,
+          "y": 0,
+          "type": "value",
+          "selection": {},
+          "settings": {
+            "fontSize": 24
+          },
+          "schema": []
+        },
+        {
+          "id": "4f845a6b-c538-4ee2-adbe-301f8e48bd49",
+          "title": "Default Database",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name = \"initial.dbms.default_database\"\nRETURN value\n\n\n\n",
+          "width": 5,
+          "height": 2,
+          "x": 14,
+          "y": 0,
+          "type": "value",
+          "selection": {},
+          "settings": {
+            "fontSize": 24
+          },
+          "schema": []
+        }
+      ]
+    },
+    {
+      "title": "Indexes",
+      "reports": [
+        {
+          "id": "6ada30f0-64c2-4ff4-883f-d6769c92411a",
+          "title": "Fulltext Indexes",
+          "query": "SHOW FULLTEXT INDEXES YIELD name, state, labelsOrTypes, properties\nRETURN name, state, labelsOrTypes, properties\nORDER BY name\n\n",
+          "width": 24,
+          "height": 4,
+          "x": 0,
+          "y": 6,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "656360b5-75c4-456a-a54b-7a5c65969a10",
+          "title": "Range Indexes",
+          "query": "SHOW INDEXES YIELD name, type, labelsOrTypes, properties\nWHERE type = \"RANGE\"\nRETURN name, type, labelsOrTypes, properties\nORDER BY name\n\n\n",
+          "width": 24,
+          "height": 4,
+          "x": 0,
+          "y": 2,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "57855469-4819-4301-b292-235365cf61b0",
+          "title": "Constraints",
+          "query": "SHOW CONSTRAINTS YIELD name, type, labelsOrTypes, properties\nWHERE name IS NOT NULL\nRETURN name, type, labelsOrTypes, properties\nORDER BY name\n\n",
+          "width": 24,
+          "height": 4,
+          "x": 0,
+          "y": 10,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "3bdf23ca-1f34-408f-9834-44ac993987de",
+          "title": "Index Syntax",
+          "query": "Syntax for index/constraint creation:\n\n- CREATE INDEX movie_title_idx FOR (n:Movie) ON (n.title)\n- CREATE CONSTRAINT person_name_constraint FOR (p:Person) REQUIRE p.name IS UNIQUE\n- CREATE FULLTEXT INDEX personNameFTI FOR (m:Person) ON EACH [m.name]\n\n\n",
+          "width": 24,
+          "height": 2,
+          "x": 0,
+          "y": 0,
+          "type": "text",
+          "selection": {},
+          "settings": {},
+          "schema": []
+        }
+      ]
+    },
+    {
+      "title": "New page",
+      "reports": [
+        {
+          "id": "1d05a21a-e859-4c69-8e3f-7dc46faa2856",
+          "title": "NEO4J Home",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name = \"server.directories.neo4j_home\"\nRETURN value",
+          "width": 18,
+          "height": 2,
+          "x": 0,
+          "y": 2,
+          "type": "value",
+          "selection": {},
+          "settings": {
+            "fontSize": 20
+          },
+          "schema": []
+        },
+        {
+          "id": "8834e064-31ff-438b-9f1a-788d90cdd3af",
+          "title": "Transactions Directory",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name = \"server.directories.transaction.logs.root\"\nRETURN value",
+          "width": 18,
+          "height": 2,
+          "x": 0,
+          "y": 6,
+          "type": "value",
+          "selection": {},
+          "settings": {
+            "fontSize": 20
+          },
+          "schema": []
+        },
+        {
+          "id": "ea6b289f-c6b3-478f-b159-c6c83d60efea",
+          "title": "Data Directory",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name = \"server.directories.data\"\nRETURN value",
+          "width": 18,
+          "height": 2,
+          "x": 0,
+          "y": 4,
+          "type": "value",
+          "selection": {},
+          "settings": {
+            "fontSize": 20
+          },
+          "schema": []
+        },
+        {
+          "id": "80e04c32-8f67-4546-8025-ebfbe7df9f97",
+          "title": "Neo4J Directories",
+          "query": "The following are the configured locations for certain directories. A couple of items to note:\n- It's recommended to use two separate volumes for the data and transaction directories to optimize performance.\n- Ensure there's enough room for the existing data and particularly check and set the settings for transaction logs and adjust.\n\n\nDocs: [https://neo4j.com/docs/operations-manual/current/database-internals/transaction-logs/](https://neo4j.com/docs/operations-manual/current/database-internals/transaction-logs/)\n\n",
+          "width": 18,
+          "height": 2,
+          "x": 0,
+          "y": 0,
+          "type": "text",
+          "selection": {},
+          "settings": {},
+          "schema": []
+        }
+      ]
+    },
+    {
+      "title": "New page",
+      "reports": [
+        {
+          "id": "64191b85-379d-4f48-b1c6-4b8d6917abbc",
+          "title": "Authentication",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name IN [\"dbms.security.authentication_providers\"]\nRETURN name, value\n\n\n",
+          "width": 11,
+          "height": 4,
+          "x": 0,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "34e518e5-6468-4337-b38e-a387063db97f",
+          "title": "Authorization",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name IN [\"dbms.security.authorization_providers\"]\nRETURN name, value\n\n\n",
+          "width": 11,
+          "height": 4,
+          "x": 11,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "fa8ed4df-f501-4608-b603-01106ca65251",
+          "title": "Security-related Settings",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name IN [\"dbms.security.procedures.allowlist\", \"browser.retain_connection_credentials\", \"browser.credential_timeout\", \"db.logs.query.parameter_logging_enabled\", \"db.logs.query.obfuscate_literals\"]\nRETURN name, value\n\n",
+          "width": 11,
+          "height": 4,
+          "x": 0,
+          "y": 4,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "c978ac79-4b6b-4564-bf41-a02504ed493c",
+          "title": "LDAP",
+          "query": "\nSHOW SETTINGS yield name, value\nWHERE name STARTS WITH \"dbms.security.ldap.\"\nRETURN name, value\n\n\n",
+          "width": 12,
+          "height": 4,
+          "x": 11,
+          "y": 4,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        }
+      ]
+    },
+    {
+      "title": "New page",
+      "reports": [
+        {
+          "id": "2c3a8033-5c0b-4e08-bfbc-5d248d09dd8d",
+          "title": "Queries",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name IN [\"db.logs.query.threshold\", \"db.logs.query.plan_description_enabled\", \"db.logs.query.transaction.enabled\"]\nRETURN name, value\n\n\n",
+          "width": 11,
+          "height": 4,
+          "x": 0,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "40febd3b-3161-4b75-a49e-0c9d44d3e99e",
+          "title": "Transactions",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name IN [\"db.memory.transaction.max\", \"dbms.memory.transaction.total.max\", \"db.memory.transaction.total.max\"]\nRETURN name, value\n\n\n",
+          "width": 12,
+          "height": 4,
+          "x": 11,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "7af59df5-5c95-46ca-a720-8eab3942cad3",
+          "title": "Heap/Pagecache",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name STARTS WITH \"server.memory.heap\" OR name STARTS WITH \"server.memory.pagecache\"\nRETURN name, value\n\n",
+          "width": 6,
+          "height": 4,
+          "x": 0,
+          "y": 4,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        }
+      ]
+    },
+    {
+      "title": "New page",
+      "reports": [
+        {
+          "id": "ff00766f-01e8-4214-a5e0-b923e69a8de7",
+          "title": "Bolt",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name STARTS WITH \"server.bolt.\"\nRETURN name, value\n\n\n",
+          "width": 14,
+          "height": 4,
+          "x": 0,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "5dddd4e4-072c-4ae2-a2ec-682e69b62bf9",
+          "title": "HTTP",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name STARTS WITH \"server.http.\"\nRETURN name, value\n\n\n",
+          "width": 14,
+          "height": 4,
+          "x": 0,
+          "y": 4,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "90a59b66-3567-4ad4-8bc3-6d985f9875ee",
+          "title": "HTTPS",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name STARTS WITH \"server.https.\"\nRETURN name, value\n\n\n",
+          "width": 14,
+          "height": 4,
+          "x": 0,
+          "y": 8,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "id": "d01df30c-7696-4c60-adfa-4ee482344661",
+          "title": "Routing",
+          "query": "SHOW SETTINGS yield name, value\nWHERE name IN [\"dbms.routing.enabled\", \"dbms.routing.default_router\"]\nRETURN name, value\n\n\n",
+          "width": 10,
+          "height": 4,
+          "x": 14,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {}
+        }
+      ]
+    }
+  ],
+  "parameters": {},
+  "extensions": {
+    "active": true,
+    "activeReducers": []
+  },
+  "uuid": "3a592290-d2c4-4758-b54c-1bfe76357a46"
+}
